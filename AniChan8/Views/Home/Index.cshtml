@@ -1,5 +1,50 @@
-﻿@{
+@model List<AniChan8.Models.Anime>
+@{
     ViewBag.Title = "Home Page";
 }
+
+<h2 style="color:azure">AniChan</h2>
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="section-title">
+            <h4>Top Rated Anime</h4>
+        </div>
+        
+        @{int count = -1; } 
+        @for (int row = 0; row < 2; row++)
+        {
+            <div class="row">
+                @for(int col=0; col<3; col++)
+                {
+                    <div class="col-sm-4">
+                        <div class="card" style="width: 28rem;">
+                            <img src="@Model[++count].thumbnail" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h3 class="card-title" style="color:azure">@Model[count].title</h3><br />
+                                <h5 class="card-title" style="color:burlywood">Rating: @Model[count].rating</h5><br />
+                                <p class="card-text" style="color:azure">@Model[count].description_</p>
+                                <a href="#" class="btn btn-primary">Watch</a>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                    if(count>=Model.Count)
+                    {
+                        break;
+                    }
+                }
+            </div>
+            if (count >= Model.Count)
+            {
+                break;
+            }
+        }
+
+    </div>
+
+</section>
+<!-- Product Section End -->
+
 
 
