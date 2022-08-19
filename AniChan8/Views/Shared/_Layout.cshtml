@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!-- Page Preloder -->
+   
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header__logo">
+                        <a href="./index.html">
+                            <img src="img/main.png" alt="AniChan logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="header__nav">
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li class="active"><a href="./index.html">Homepage</a></li>
+                                
+                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="header__right">
+                        <a href="#" class="search-switch"><span class="icon_search"></span></a>
+                        <a href="./login.html"><span class="icon_profile"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <!-- Footer Section Begin -->
+        <footer class="footer">
+            <div class="page-up">
+                <a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="footer__logo">
+                            <a href="./index.html"><img src="img/main.png" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="footer__nav">
+                            <ul>
+                                <li class="active"><a href="./index.html">Homepage</a></li>
+
+                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                <li>@Html.ActionLink("Credits", "Credits", "Home")</li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <p>
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> </a>                            
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer Section End -->
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
