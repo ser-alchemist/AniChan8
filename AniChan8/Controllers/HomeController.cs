@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AniChan8.Models;
 
 namespace AniChan8.Controllers
 {
     public class HomeController : Controller
     {
+        AniChanEntities db = new AniChanEntities();
         public ActionResult Index()
         {
-            return View();
+            List<Anime> animeList = db.Animes.SqlQuery("select top 8 * from Anime order by rating desc").ToList();
+            
+            return View(animeList);
         }
 
         public ActionResult About()
