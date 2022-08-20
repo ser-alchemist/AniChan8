@@ -24,7 +24,10 @@
                                 <h3 class="card-title" style="color:azure">@Model[count].title</h3><br />
                                 <h5 class="card-title" style="color:burlywood">Rating: @Model[count].rating</h5><br />
                                 <p class="card-text" style="color:azure">@Model[count].description_</p>
-                                <a href="#" class="btn btn-primary">Watch</a>
+                                @using (Html.BeginForm("Play", "Player", new { anime = Model[count].anime_id, episode = 1 }, FormMethod.Post))
+                                {
+                                    <button class="btn btn-primary">Watch</button>
+                                }
                             </div>
                         </div>
                         <br /><br />
@@ -45,6 +48,3 @@
 
 </section>
 <!-- Product Section End -->
-
-
-
