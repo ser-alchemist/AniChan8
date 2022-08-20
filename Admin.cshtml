@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AniChan8.Models.Anime>
+
+@{
+	ViewBag.Title = "Index";
+}
+<p>
+	@html.ActionLink("Create New", "Create")
+</p>
+	
+<table class = "table">
+	<tr>
+		<th> 
+			@html.DisplayNameFor(model => model.title)
+		</th>
+		<th> 
+			@html.DisplayNameFor(model => model.genre)
+		</th>
+		<th> 
+			@html.DisplayNameFor(model => model.description_)
+		</th>
+		<th> 
+			@html.DisplayNameFor(model => model.rating)
+		</th>
+		<th> 
+			@html.DisplayNameFor(model => model.episode)
+		</th>
+		<th> 
+			@html.DisplayNameFor(model => model.thumbnail)
+		</th>
+		<th> 
+			@html.DisplayNameFor(model => model.trailer)
+		</th>
+		<th> 
+			@html.DisplayNameFor(model => model.waring)
+		</th>
+		<th
+			@html.DisplayNameFor(model => model.premium)
+		</th>
+		<th> 
+			@html.DisplayNameFor(model => model.movie)
+		</th>
+
+	@foreach(var item in Model){
+		<tr>
+			<td>
+				@html.DisplayForName(modelItem => Item.title)
+			</td>
+			<td>
+				@html.DisplayForName(modelItem => Item.genre)
+			</td>
+			<td>
+				@html.DisplayForName(modelItem => Item.description_)
+			</td>
+			<td>
+				@html.DisplayForName(modelItem => Item.rating)
+			</td>
+			<td>
+				@html.DisplayForName(modelItem => Item.episode)
+			</td>
+			<td>
+				@html.DisplayForName(modelItem => Item.thumbnail)
+			</td>
+			<td>
+				@html.DisplayForName(modelItem => Item.trailer)
+			</td>
+			<td>
+				@html.DisplayForName(modelItem => Item.warning)
+			</td>
+			<td>
+				@html.DisplayForName(modelItem => Item.premium)
+			</td>
+			<td>
+				@html.DisplayForName(modelItem => Item.movie)
+			</td>
+	
+		</tr>
+}
+
+	
