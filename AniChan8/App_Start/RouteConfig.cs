@@ -18,6 +18,12 @@ namespace AniChan8
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            
+            routes.MapRoute(
+                name: "Player",
+                url: "{controller}/{action}/{anime}/{episode}",
+                defaults: new { controller = "Player", action = "Play", anime = UrlParameter.Optional, episode = UrlParameter.Optional }
+            );
         }
     }
 }
