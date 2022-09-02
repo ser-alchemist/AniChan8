@@ -100,9 +100,11 @@
         <div class="search-model">
             <div class="h-100 d-flex align-items-center justify-content-center">
                 <div class="search-close-switch"><i class="icon_close"></i></div>
-                <form action="~/Home/Search" method="post">
-                    <input type="text" name="keyword" />
-                    <input type="submit" value="Search" />
+                <form class="search-model-form" action="~/Home/Search" method="post">
+                    
+                        <input style="align-self:flex-end; margin:50px" type="text" class="form-control form-control-lg" id="search-input" placeholder="Search here....." name="keyword" />
+                    
+                    <input type="submit" class="btn btn-warning" value="Search" />
                 </form>
             </div>
         </div>
