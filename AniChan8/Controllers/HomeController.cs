@@ -20,11 +20,11 @@ namespace AniChan8.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(string keyword="")
+        public ActionResult Search(string keyword)
         {
-            List<Anime> animeList = db.Animes.SqlQuery("select top 50 * from Anime where title like '%@keyword%'", new SqlParameter("@keyword", keyword)).ToList();
-            return View(animeList);
+            return View(db.Animes.Where(x => x.title.Contains(keyword) || keyword == null).ToList());
         }
+        
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
