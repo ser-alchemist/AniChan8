@@ -12,15 +12,38 @@
     ViewBag.Title = "Play";
 
 }
+<h5 style="color:azure">Title: @ViewBag.Anime.title</h5>
+<br />
+<h6 style="color:azure">Episode: @ViewBag.Episode.episode_num</h6>
+<br />
 
-<h2 style="color:azure">Title: @ViewBag.Anime.title</h2>
-<br />
-<h2 style="color:azure">Episode: @ViewBag.Episode.episode_num</h2>
-<br />
+<div>
+    @if (ViewBag.bmBtn == true)
+    {
+        if (ViewBag.isBm == true)
+        {
+            using (Html.BeginForm("RemoveBookmark", "Player", new { anime = ViewBag.Anime.anime_id, episode = ViewBag.currentEp }, FormMethod.Post))
+            {
+                <button class="btn btn-danger">X Remove Bookmark</button>
+                <p> </p>
+            }
+
+        }
+        else
+        {
+            using (Html.BeginForm("AddBookmark", "Player", new { anime = ViewBag.Anime.anime_id, episode = ViewBag.currentEp }, FormMethod.Post))
+            {
+                <button class="btn btn-success">+ Bookmark This Anime</button>
+                <p> </p>
+            }
+        }
+    }
+</div>
 
 @{ 
     int noCol = 10;
     int ep = 1;
+    //int currentEp = 1;
     int noRows = Convert.ToInt32(Math.Ceiling( Convert.ToDouble(ViewBag.Anime.episodes) / Convert.ToDouble(noCol)  ));
 }
 <!-- Anime Section Begin -->
@@ -33,12 +56,17 @@
                         <source src="~/@ViewBag.Episode.source_" type="video/mp4" />
                     </video>
                 </div>
+
+                
+
                 <div class="anime__details__episodes">
                     <div class="section-title">
                         <h5>Episodes </h5>
                     </div>
                 </div>
             </div>
+
+            
 
             <div>
                 @for (int i = 0; i < noRows; i++)
@@ -55,8 +83,7 @@
                                 @if (ep == ViewBag.Episode.episode_num)
                                 {
                                         <button class="btn btn-warning">Episode @ep</button>
-                                        <p> </p>
-                                    
+                                        <p> </p>                                    
                                 }
                                 else
                                 {
