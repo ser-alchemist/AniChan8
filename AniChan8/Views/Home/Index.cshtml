@@ -3,15 +3,51 @@
     ViewBag.Title = "Home Page";
 }
 
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="container">
+        <div class="hero__slider owl-carousel">
+
+            @for (int i = 0; i < 3; i++)
+            {
+                if (i < Model.Count)
+                {
+                    <div class="hero__items set-bg" data-setbg="@Model[i].slide">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="hero__text">
+                                    <div class="label">@Model[i].genre</div>
+                                    <h2>@Model[i].title</h2>
+                                    <p>@Model[i].description_</p>
+                                    @using (Html.BeginForm("Play", "Player", new { anime = Model[i].anime_id, episode = 1 }, FormMethod.Post))
+                                    {
+                                        <button class="btn btn-lg" style="background-color:chocolate; color:aliceblue">Watch Now</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+
+
+
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+
 <h2 style="color:azure">AniChan</h2>
 <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">
         <div class="section-title">
-            <h4>Top Rated Anime"</h4>
+            <h4>Top Rated Anime</h4>
         </div>
 
-        
+
         @if (Model.Count() == 0)
         {
             <br />
@@ -24,36 +60,36 @@
             {
                 if (count % 3 == 0)
                 {
-                    @:<div class="row">             
-                }
+                    @:<div class="row">
+                    }
 
-                <div class="col-sm-4">
-                      <div class="card" style="width: 28rem;">
+                    <div class="col-sm-4">
+                        <div class="card" style="width: 28rem;">
                             <img src="@item.thumbnail" class="card-img-top" alt="...">
                             <div class="card-body">
-                            <h3 class="card-title" style="color:azure">@item.title</h3><br />
-                            <h5 class="card-title" style="color:burlywood">Rating: @item.rating</h5><br />
-                            <p class="card-text" style="color:azure">@item.description_</p>
-                            @using (Html.BeginForm("Play", "Player", new { anime = item.anime_id, episode = 1 }, FormMethod.Post))
-                            {
-                                <button class="btn btn-primary">Watch</button>
-                            }
+                                <h3 class="card-title" style="color:azure">@item.title</h3><br />
+                                <h5 class="card-title" style="color:burlywood">Rating: @item.rating</h5><br />
+                                <p class="card-text" style="color:azure">@item.description_</p>
+                                @using (Html.BeginForm("Play", "Player", new { anime = item.anime_id, episode = 1 }, FormMethod.Post))
+                                {
+                                    <button class="btn btn-primary">Watch</button>
+                                }
                             </div>
-                       </div>
-                       <br /><br />
-                </div>
-                count++;
-                if( count%3 == 0)
-                {
-                      @:</div>
+                        </div>
+                        <br /><br />
+                    </div>
+                    count++;
+                    if (count % 3 == 0)
+                    {
+                    @:</div>
                 }
             }
-            if(count%3 != 0)
+            if (count % 3 != 0)
             {
-                @:</div>
-            }
+            @:</div>
         }
-                    
-    </div>
-</section>
-<!-- Product Section End -->
+    }
+
+        </div>
+    </section>
+    <!-- Product Section End -->
