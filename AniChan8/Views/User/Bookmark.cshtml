@@ -1,0 +1,59 @@
+@model List<AniChan8.Models.Anime>
+@{
+    ViewBag.Title = "Bookmark";
+}
+
+
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="section-title">
+            <h4>Bookmarked Animes</h4>
+        </div>
+
+
+        @if (Model.Count() == 0)
+        {
+            <br />
+            <h4 style="color:goldenrod; font-weight:bold">No bookmarked anime</h4>
+        }
+        else
+        {
+            int count = 0;
+            foreach (var item in Model)
+            {
+                if (count % 3 == 0)
+                {
+                    @:<div class="row">
+                    }
+
+                    <div class="col-sm-4">
+                        <div class="card" style="width: 28rem;">
+                            <img src="@item.thumbnail" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h3 class="card-title" style="color:azure">@item.title</h3><br />
+                                <h5 class="card-title" style="color:burlywood">Rating: @item.rating</h5><br />
+                                <p class="card-text" style="color:azure">@item.description_</p>
+                                @using (Html.BeginForm("Play", "Player", new { anime = item.anime_id, episode = 1 }, FormMethod.Post))
+                                {
+                                    <button class="btn btn-primary">Watch</button>
+                                }
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                    count++;
+                    if (count % 3 == 0)
+                    {
+                    @:</div>
+                }
+            }
+            if (count % 3 != 0)
+            {
+            @:</div>
+        }
+    }
+
+        </div>
+    </section>
+
