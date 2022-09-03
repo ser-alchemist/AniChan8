@@ -1,0 +1,590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AniChanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="role_" Type="varchar" MaxLength="50" />
+          <Property Name="user_name_" Type="varchar" MaxLength="50" />
+          <Property Name="password_" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Anime">
+          <Key>
+            <PropertyRef Name="anime_id" />
+          </Key>
+          <Property Name="anime_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" />
+          <Property Name="genre" Type="varchar" MaxLength="50" />
+          <Property Name="description_" Type="varchar" MaxLength="200" />
+          <Property Name="rating" Type="float" />
+          <Property Name="episodes" Type="int" />
+          <Property Name="thumbnail" Type="varchar" MaxLength="150" />
+          <Property Name="trailer" Type="varchar" MaxLength="150" />
+          <Property Name="warning" Type="bit" />
+          <Property Name="premium" Type="bit" />
+          <Property Name="movie" Type="bit" />
+        </EntityType>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="bm_id" />
+          </Key>
+          <Property Name="bm_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id_" Type="int" />
+          <Property Name="anime_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Buy">
+          <Key>
+            <PropertyRef Name="trxn_id" />
+          </Key>
+          <Property Name="trxn_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id_" Type="int" />
+          <Property Name="time_stamp" Type="datetime" />
+          <Property Name="amount" Type="float" />
+          <Property Name="payment_method" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Episodes">
+          <Key>
+            <PropertyRef Name="ep_id" />
+          </Key>
+          <Property Name="ep_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="anime_id" Type="int" />
+          <Property Name="episode_num" Type="int" />
+          <Property Name="source_" Type="varchar" MaxLength="150" />
+          <Property Name="premium" Type="bit" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="r_id" />
+          </Key>
+          <Property Name="r_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="anime_id" Type="int" />
+          <Property Name="user_id_" Type="int" />
+          <Property Name="rating" Type="int" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="sub_id" />
+          </Key>
+          <Property Name="sub_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id_" Type="int" />
+          <Property Name="expiry_date_" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id_" />
+          </Key>
+          <Property Name="user_id_" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" />
+          <Property Name="email" Type="varchar" MaxLength="200" />
+          <Property Name="user_name_" Type="varchar" MaxLength="100" />
+          <Property Name="password_" Type="varchar" MaxLength="200" />
+          <Property Name="date_of_join" Type="date" />
+          <Property Name="date_of_birth" Type="date" />
+        </EntityType>
+        <Association Name="FK__Bookmark__anime___4BAC3F29">
+          <End Role="Anime" Type="Self.Anime" Multiplicity="0..1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anime">
+              <PropertyRef Name="anime_id" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="anime_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookmark__user_i__4AB81AF0">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id_" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="user_id_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Buy__user_id___3A81B327">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Buy" Type="Self.Buy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id_" />
+            </Principal>
+            <Dependent Role="Buy">
+              <PropertyRef Name="user_id_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Episodes__anime___2B3F6F97">
+          <End Role="Anime" Type="Self.Anime" Multiplicity="0..1" />
+          <End Role="Episodes" Type="Self.Episodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anime">
+              <PropertyRef Name="anime_id" />
+            </Principal>
+            <Dependent Role="Episodes">
+              <PropertyRef Name="anime_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__anime_id__5070F446">
+          <End Role="Anime" Type="Self.Anime" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anime">
+              <PropertyRef Name="anime_id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="anime_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__user_id___5165187F">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id_" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="user_id_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__user___164452B1">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id_" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="user_id_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AniChanModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Anime" EntityType="Self.Anime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bookmark" EntityType="Self.Bookmark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Buy" EntityType="Self.Buy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Episodes" EntityType="Self.Episodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Bookmark__anime___4BAC3F29" Association="Self.FK__Bookmark__anime___4BAC3F29">
+            <End Role="Anime" EntitySet="Anime" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookmark__user_i__4AB81AF0" Association="Self.FK__Bookmark__user_i__4AB81AF0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Buy__user_id___3A81B327" Association="Self.FK__Buy__user_id___3A81B327">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Buy" EntitySet="Buy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Episodes__anime___2B3F6F97" Association="Self.FK__Episodes__anime___2B3F6F97">
+            <End Role="Anime" EntitySet="Anime" />
+            <End Role="Episodes" EntitySet="Episodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__anime_id__5070F446" Association="Self.FK__Rating__anime_id__5070F446">
+            <End Role="Anime" EntitySet="Anime" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__user_id___5165187F" Association="Self.FK__Rating__user_id___5165187F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__user___164452B1" Association="Self.FK__Subscript__user___164452B1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Subscription" EntitySet="Subscription" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AniChanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="role_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_name_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Anime">
+          <Key>
+            <PropertyRef Name="anime_id" />
+          </Key>
+          <Property Name="anime_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="genre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description_" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="rating" Type="Double" />
+          <Property Name="episodes" Type="Int32" />
+          <Property Name="thumbnail" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="trailer" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="warning" Type="Boolean" />
+          <Property Name="premium" Type="Boolean" />
+          <Property Name="movie" Type="Boolean" />
+          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__anime___4BAC3F29" FromRole="Anime" ToRole="Bookmark" />
+          <NavigationProperty Name="Episodes1" Relationship="Self.FK__Episodes__anime___2B3F6F97" FromRole="Anime" ToRole="Episodes" />
+          <NavigationProperty Name="Ratings" Relationship="Self.FK__Rating__anime_id__5070F446" FromRole="Anime" ToRole="Rating" />
+        </EntityType>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="bm_id" />
+          </Key>
+          <Property Name="bm_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id_" Type="Int32" />
+          <Property Name="anime_id" Type="Int32" />
+          <NavigationProperty Name="Anime" Relationship="Self.FK__Bookmark__anime___4BAC3F29" FromRole="Bookmark" ToRole="Anime" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Bookmark__user_i__4AB81AF0" FromRole="Bookmark" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Buy">
+          <Key>
+            <PropertyRef Name="trxn_id" />
+          </Key>
+          <Property Name="trxn_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id_" Type="Int32" />
+          <Property Name="time_stamp" Type="DateTime" Precision="3" />
+          <Property Name="amount" Type="Double" />
+          <Property Name="payment_method" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Buy__user_id___3A81B327" FromRole="Buy" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Episode">
+          <Key>
+            <PropertyRef Name="ep_id" />
+          </Key>
+          <Property Name="ep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="anime_id" Type="Int32" />
+          <Property Name="episode_num" Type="Int32" />
+          <Property Name="source_" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="premium" Type="Boolean" />
+          <NavigationProperty Name="Anime" Relationship="Self.FK__Episodes__anime___2B3F6F97" FromRole="Episodes" ToRole="Anime" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="r_id" />
+          </Key>
+          <Property Name="r_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="anime_id" Type="Int32" />
+          <Property Name="user_id_" Type="Int32" />
+          <Property Name="rating1" Type="Int32" />
+          <NavigationProperty Name="Anime" Relationship="Self.FK__Rating__anime_id__5070F446" FromRole="Rating" ToRole="Anime" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Rating__user_id___5165187F" FromRole="Rating" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="sub_id" />
+          </Key>
+          <Property Name="sub_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id_" Type="Int32" />
+          <Property Name="expiry_date_" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Subscript__user___164452B1" FromRole="Subscription" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_id_" />
+          </Key>
+          <Property Name="user_id_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="user_name_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password_" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_join" Type="DateTime" Precision="0" />
+          <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__user_i__4AB81AF0" FromRole="Users" ToRole="Bookmark" />
+          <NavigationProperty Name="Buys" Relationship="Self.FK__Buy__user_id___3A81B327" FromRole="Users" ToRole="Buy" />
+          <NavigationProperty Name="Ratings" Relationship="Self.FK__Rating__user_id___5165187F" FromRole="Users" ToRole="Rating" />
+          <NavigationProperty Name="Subscriptions" Relationship="Self.FK__Subscript__user___164452B1" FromRole="Users" ToRole="Subscription" />
+        </EntityType>
+        <Association Name="FK__Bookmark__anime___4BAC3F29">
+          <End Role="Anime" Type="Self.Anime" Multiplicity="0..1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anime">
+              <PropertyRef Name="anime_id" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="anime_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Episodes__anime___2B3F6F97">
+          <End Role="Anime" Type="Self.Anime" Multiplicity="0..1" />
+          <End Role="Episodes" Type="Self.Episode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anime">
+              <PropertyRef Name="anime_id" />
+            </Principal>
+            <Dependent Role="Episodes">
+              <PropertyRef Name="anime_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__anime_id__5070F446">
+          <End Role="Anime" Type="Self.Anime" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anime">
+              <PropertyRef Name="anime_id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="anime_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookmark__user_i__4AB81AF0">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id_" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="user_id_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Buy__user_id___3A81B327">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Buy" Type="Self.Buy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id_" />
+            </Principal>
+            <Dependent Role="Buy">
+              <PropertyRef Name="user_id_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__user_id___5165187F">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id_" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="user_id_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__user___164452B1">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id_" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="user_id_" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AniChanEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Animes" EntityType="Self.Anime" />
+          <EntitySet Name="Bookmarks" EntityType="Self.Bookmark" />
+          <EntitySet Name="Buys" EntityType="Self.Buy" />
+          <EntitySet Name="Episodes" EntityType="Self.Episode" />
+          <EntitySet Name="Ratings" EntityType="Self.Rating" />
+          <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Bookmark__anime___4BAC3F29" Association="Self.FK__Bookmark__anime___4BAC3F29">
+            <End Role="Anime" EntitySet="Animes" />
+            <End Role="Bookmark" EntitySet="Bookmarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Episodes__anime___2B3F6F97" Association="Self.FK__Episodes__anime___2B3F6F97">
+            <End Role="Anime" EntitySet="Animes" />
+            <End Role="Episodes" EntitySet="Episodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__anime_id__5070F446" Association="Self.FK__Rating__anime_id__5070F446">
+            <End Role="Anime" EntitySet="Animes" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookmark__user_i__4AB81AF0" Association="Self.FK__Bookmark__user_i__4AB81AF0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bookmark" EntitySet="Bookmarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Buy__user_id___3A81B327" Association="Self.FK__Buy__user_id___3A81B327">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Buy" EntitySet="Buys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__user_id___5165187F" Association="Self.FK__Rating__user_id___5165187F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__user___164452B1" Association="Self.FK__Subscript__user___164452B1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AniChanModelStoreContainer" CdmEntityContainer="AniChanEntities1">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="AniChanModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="role_" ColumnName="role_" />
+                <ScalarProperty Name="user_name_" ColumnName="user_name_" />
+                <ScalarProperty Name="password_" ColumnName="password_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Animes">
+            <EntityTypeMapping TypeName="AniChanModel.Anime">
+              <MappingFragment StoreEntitySet="Anime">
+                <ScalarProperty Name="anime_id" ColumnName="anime_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="genre" ColumnName="genre" />
+                <ScalarProperty Name="description_" ColumnName="description_" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="episodes" ColumnName="episodes" />
+                <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
+                <ScalarProperty Name="trailer" ColumnName="trailer" />
+                <ScalarProperty Name="warning" ColumnName="warning" />
+                <ScalarProperty Name="premium" ColumnName="premium" />
+                <ScalarProperty Name="movie" ColumnName="movie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookmarks">
+            <EntityTypeMapping TypeName="AniChanModel.Bookmark">
+              <MappingFragment StoreEntitySet="Bookmark">
+                <ScalarProperty Name="bm_id" ColumnName="bm_id" />
+                <ScalarProperty Name="user_id_" ColumnName="user_id_" />
+                <ScalarProperty Name="anime_id" ColumnName="anime_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buys">
+            <EntityTypeMapping TypeName="AniChanModel.Buy">
+              <MappingFragment StoreEntitySet="Buy">
+                <ScalarProperty Name="trxn_id" ColumnName="trxn_id" />
+                <ScalarProperty Name="user_id_" ColumnName="user_id_" />
+                <ScalarProperty Name="time_stamp" ColumnName="time_stamp" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Episodes">
+            <EntityTypeMapping TypeName="AniChanModel.Episode">
+              <MappingFragment StoreEntitySet="Episodes">
+                <ScalarProperty Name="ep_id" ColumnName="ep_id" />
+                <ScalarProperty Name="anime_id" ColumnName="anime_id" />
+                <ScalarProperty Name="episode_num" ColumnName="episode_num" />
+                <ScalarProperty Name="source_" ColumnName="source_" />
+                <ScalarProperty Name="premium" ColumnName="premium" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="AniChanModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="r_id" ColumnName="r_id" />
+                <ScalarProperty Name="anime_id" ColumnName="anime_id" />
+                <ScalarProperty Name="user_id_" ColumnName="user_id_" />
+                <ScalarProperty Name="rating1" ColumnName="rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscriptions">
+            <EntityTypeMapping TypeName="AniChanModel.Subscription">
+              <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="sub_id" ColumnName="sub_id" />
+                <ScalarProperty Name="user_id_" ColumnName="user_id_" />
+                <ScalarProperty Name="expiry_date_" ColumnName="expiry_date_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AniChanModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AniChanModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_id_" ColumnName="user_id_" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="user_name_" ColumnName="user_name_" />
+                <ScalarProperty Name="password_" ColumnName="password_" />
+                <ScalarProperty Name="date_of_join" ColumnName="date_of_join" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
