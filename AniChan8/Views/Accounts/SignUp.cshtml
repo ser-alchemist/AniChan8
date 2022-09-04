@@ -1,9 +1,9 @@
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "SignUp";
 }
 
-<h2>Login</h2>
+<h2>SignUp</h2>
 
 <!-- Normal Breadcrumb Begin -->
 <section class="normal-breadcrumb set-bg" data-setbg="../../img/normal-breadcrumb.jpg">
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="normal__breadcrumb__text">
-                    <h2>Login</h2>
+                    <h2>Sign Up</h2>
                     <p>Welcome to AniChan.</p>
                 </div>
             </div>
@@ -19,49 +19,48 @@
     </div>
 </section>
 <!-- Normal Breadcrumb End -->
-<!-- Login Section Begin -->
-<section class="login spad">
+<!-- Signup Section Begin -->            
+
+<section class="signup spad">
     <div class="container">
         <div class="row">
-            @if (ViewBag.showMessage == true)
-            {
-                <div class="alert alert-success text-center" role="alert">
-                    <b>@ViewBag.message</b>
-                    @{ViewBag.showMessage = false;}
-                </div>
-            }
             @if (ViewBag.showError == true)
             {
-                <div class="alert alert-danger text-center" role="alert">
+                <div class="alert alert-danger text-center" role="alert" >
                     <b>@ViewBag.errorMessage</b>
                     @{ViewBag.errorMessage = false;}
                 </div>
             }
             <div class="col-lg-6">
                 <div class="login__form">
-                    <h3>Login</h3>
-                    @using (Html.BeginForm("Login", "Accounts"))
+                    <h3>Sign Up</h3>
+                    @using (Html.BeginForm("SignUp", "Accounts"))
                     {
                         <div class="input__item">
-                            <input type="text" placeholder="User Name" name="username">
+                            <input type="text" placeholder="Email address" name="email">
+                            <span class="icon_mail"></span>
+                        </div>
+                        <div class="input__item">
+                            <input type="text" placeholder="User Name" name="user_name">
                             <span class="icon_profile"></span>
                         </div>
                         <div class="input__item">
                             <input type="password" placeholder="Password" name="password">
                             <span class="icon_lock"></span>
                         </div>
-                        <input class="site-btn" type="submit" value="Login" />
+                        <input class="site-btn" type="submit" value="Register Now" />
                     }
-                    <a href="#" class="forget_pass">Forgot Your Password?</a>
+
+
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="login__register">
-                    <h3>Dont’t Have An Account?</h3>
-                    <a href="@Url.Action("SignUp","Accounts")" class="primary-btn">Register Now</a>
+                    <h3>Already Have An Account?</h3>
+                    <a href="@Url.Action("Login","Accounts")" class="primary-btn">Go To Login</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Login Section End -->
+<!-- Signup Section End -->
