@@ -11,7 +11,8 @@ namespace AniChan8.Controllers
     public class AccountsController : Controller
     {
         // GET: Accounts
-        AniChanEntities db = new AniChanEntities();
+        AniChanEntities1 db = new AniChanEntities1();
+
 
         public ActionResult LogOut()
         {
@@ -93,7 +94,9 @@ namespace AniChan8.Controllers
                 return View();
 
             }
-            
+            //string uname = db.Users.SqlQuery<string>("select top 1 user_id_ from Users where user_name_='rafi'").FirstOrDefault();
+            //var user1 = db.Users.SqlQuery("select top 1 * from Users where user_name_='@uname'", new SqlParameter("@uname", user_name)).ToList();
+            //var user2 = db.Users.SqlQuery("select top 1 * from Users where email='@email'", new SqlParameter("@email", email)).ToList();
             string qry1 = String.Format("select top 1 * from Users where email='{0}'", email);
             var user1 = db.Users.SqlQuery(qry1).FirstOrDefault();
             string qry2 = String.Format("select top 1 * from Users where user_name_='{0}'", user_name);
@@ -112,10 +115,32 @@ namespace AniChan8.Controllers
                 return View();
             }
 
-           
+            /*
+            if(user2.Count==0)
+            {
+                ViewBag.showError = true;
+                ViewBag.errorMessage = "Email already exist!";
+                return View();
+            }
+            else if (user1.Count==0)
+            {
+                ViewBag.showError = true;
+                ViewBag.errorMessage = "Username already exist!";
+                return View();
+            }*/
             else
             {
-               
+                /*
+                var sql = @"insert into Users Users(email, user_name_, password_) values ('@email', '@uname', '@password')";
+
+                int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                                        new SqlParameter("@email", email),
+                                        new SqlParameter("@uname", user_name),
+                                        new SqlParameter("@password", password));
+
+                
+                //int noOfRowInserted = db.Database.ExecuteSqlCommand("insert into Users(email, user_name_, password_) values ('@email', '@uname', '@password')", new SqlParameter("@email", email), new SqlParameter("@uname", user_name), new SqlParameter("@password", password) );
+                */
                 ViewBag.showError = false;
                 string query = String.Format("insert into Users(email, user_name_, password_) values ('{0}', '{1}', '{2}')", email, user_name, password);
                 int noOfRowInserted = db.Database.ExecuteSqlCommand(query);
@@ -131,6 +156,13 @@ namespace AniChan8.Controllers
                     return View();
                 }
             }
+            //return View();
+
         }
+
+
+
+
+
     }
 }
