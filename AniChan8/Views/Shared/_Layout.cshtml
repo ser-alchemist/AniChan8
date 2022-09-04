@@ -32,16 +32,19 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li class="active">@Html.ActionLink("Homepage", "Index", "Home")</li>
-                                <li>@Html.ActionLink("About", "About", "Home")</li>
-                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
                                 @if (Session["user_id_SS"] != null)
                                 {
                                     <li>@Html.ActionLink("Bookmark", "Bookmark", "User")</li>
+                                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                                     <li>@Html.ActionLink("Logout", "LogOut", "Accounts", null, new { @style = "color:lightcoral" })</li>
                                 }
                                 else
                                 {
-                                    <li >@Html.ActionLink("Login", "Login", "Accounts", null, new {@style= "style=color:aquamarine" })</li>
+                                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                    <li>@Html.ActionLink("Login", "Login", "Accounts", null, new { @style = "style=color:aquamarine" })</li>
 
                                 }
                             </ul>
@@ -91,7 +94,8 @@
                     <div class="col-lg-3">
                         <p>
                             Copyright &copy;
-                            <a><script>document.write(new Date().getFullYear());</script> </a>
+                            <a>
+                            <script>document.write(new Date().getFullYear());</script> </a>
                         </p>
 
                     </div>
@@ -104,14 +108,16 @@
             <div class="h-100 d-flex align-items-center justify-content-center">
                 <div class="search-close-switch"><i class="icon_close"></i></div>
                 <form class="search-model-form" action="~/Home/Search" method="post">
-                    
-                        <input style="align-self:flex-end; margin:50px" type="text" class="form-control form-control-lg" id="search-input" placeholder="Search here....." name="keyword" />
-                    
+
+                    <input style="align-self:flex-end; margin:50px" type="text" class="form-control form-control-lg" id="search-input" placeholder="Search here....." name="keyword" />
+
                     <input type="submit" class="btn btn-warning" value="Search" />
                 </form>
             </div>
         </div>
         <!-- Search model end -->
+
+
     </div>
     <!-- Js Plugins -->
     <script src="~/js/jquery-3.3.1.min.js"></script>
